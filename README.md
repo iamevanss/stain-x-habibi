@@ -44,7 +44,7 @@ No Telegram pairing. No terminal phone prompts.
 |---|---|
 | **Website** | [stainxhabibi-stain-s-projects.vercel.app](https://stainxhabibi-stain-s-projects.vercel.app) |
 | **Pair Now** | [Pair your WhatsApp](https://stainxhabibi-stain-s-projects.vercel.app/pair) |
-| **License** | [MIT](./LICENSE) |
+| **License** | [Proprietary — All Rights Reserved](./LICENSE) |
 
 ---
 
