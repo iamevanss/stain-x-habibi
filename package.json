@@ -25,6 +25,7 @@
     "@jimp/core": "^1.6.0",
     "@jimp/wasm-webp": "^1.6.0",
     "node-webpmux": "^3.2.0",
+    "sharp": "^0.33.5",
     "@vreden/youtube_scraper": "latest",
     "cheerio": "^1.0.0"
   },

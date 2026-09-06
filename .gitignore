@@ -1,7 +1,10 @@
-.env
+node_modules/
 auth_info_baileys/
-data/*.json
-tmp/
-backup-*/
-plugins/*.js
 *.log
+.env
+data/warns.json
+data/settings.json
+data/tg_token.txt
+lib/.handler.cache.js
+tmp/
+.DS_Store
