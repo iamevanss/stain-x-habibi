@@ -1,7 +1,11 @@
-# Stain × Habibi Website
+# Website (Vercel frontend)
 
-Vercel frontend only: landing page + Pair Now page.
+Landing page + Pair Now UI.
 
-Deploy root directory: `website`
+- Deploy root: `website/`
+- Project: stainxhabibi
+- Pairing API is Oracle Cloud (not on Vercel)
 
-Pairing API is served by Oracle Cloud backend (not this folder).
+Pages:
+- `/` — landing
+- `/pair.html` — pairing flow
