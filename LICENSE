@@ -1,21 +1,136 @@
-MIT License
+STAIN × HABIBI SOFTWARE LICENSE AGREEMENT
+Version 1.0 — Proprietary, All Rights Reserved
+Copyright (c) 2026 Stain × Habibi. All rights reserved.
 
-Copyright (c) 2026 Stain × Habibi
+This Software License Agreement ("Agreement") is a binding legal agreement
+between you (an individual or a single entity, "Licensee") and the copyright
+holder of Stain × Habibi ("Licensor") governing use of the accompanying
+source code, object code, documentation, website assets, configuration
+files, and any related materials (collectively, the "Software").
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+BY DOWNLOADING, CLONING, INSTALLING, DEPLOYING, PAIRING WITH, OR OTHERWISE
+USING THE SOFTWARE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS
+AGREEMENT. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT DOWNLOAD, INSTALL, OR
+USE THE SOFTWARE.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. DEFINITIONS
+   1.1 "Software" means the Stain × Habibi WhatsApp Multi-Device bot,
+       including its bot engine, plugins, libraries, pairing website, and
+       any updates, patches, or documentation distributed with it.
+   1.2 "Authorized Use" means running an unmodified or Licensor-approved
+       instance of the Software solely for the Licensee's own group and
+       personal WhatsApp messaging use, on hardware or hosting the
+       Licensee controls, using a WhatsApp account the Licensee is
+       legally entitled to link.
+   1.3 "Derivative Work" means any modification, adaptation, translation,
+       port, plugin, fork, or work based on or incorporating any portion
+       of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. GRANT OF LICENSE
+   Subject to the terms of this Agreement, Licensor grants Licensee a
+   limited, personal, non-exclusive, non-transferable, non-sublicensable,
+   revocable license to:
+   (a) download and run one (1) instance of the Software for Authorized
+       Use; and
+   (b) view the source code solely to understand and operate the
+       Software for Authorized Use.
+   No other rights are granted, whether by implication, estoppel, or
+   otherwise. All rights not expressly granted are reserved by Licensor.
+
+3. RESTRICTIONS
+   Licensee shall NOT, and shall not permit any third party to:
+   (a) copy, resell, sublicense, rent, lease, lend, or otherwise
+       redistribute the Software or any Derivative Work, in whole or in
+       part, whether for commercial gain or free of charge;
+   (b) publicly host, mirror, or republish the Software's source code or
+       pairing website under a different name, brand, or domain;
+   (c) remove, obscure, or alter any copyright, trademark, attribution,
+       or proprietary notice contained in the Software;
+   (d) use the Software, its name, or its branding to imply endorsement
+       of any product or service without Licensor's prior written consent;
+   (e) reverse engineer, decompile, or disassemble the Software except
+       to the minimum extent an applicable law expressly permits despite
+       this restriction;
+   (f) use the Software to send unsolicited bulk messages ("spam"),
+       to harass, defraud, impersonate, or otherwise violate WhatsApp's
+       Terms of Service, Meta's policies, or any applicable law;
+   (g) use the Software's pairing service, Session ID system, or
+       bootstrap mechanism to harvest, resell, or broker WhatsApp
+       sessions belonging to third parties; or
+   (h) create a Derivative Work and distribute it without Licensor's
+       prior written, signed authorization.
+
+4. OWNERSHIP
+   The Software is licensed, not sold. Licensor and its contributors
+   retain all right, title, and interest in and to the Software,
+   including all copyrights, trademarks, trade secrets, and other
+   intellectual property rights therein. This Agreement does not
+   convey any ownership interest in the Software.
+
+5. THIRD-PARTY SERVICES
+   The Software interoperates with WhatsApp via third-party libraries
+   and requires the Licensee's own WhatsApp account. Licensor is not
+   affiliated with, endorsed by, or sponsored by WhatsApp LLC or Meta
+   Platforms, Inc. Licensee is solely responsible for complying with
+   WhatsApp's and Meta's terms when using the Software.
+
+6. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY
+   OF ANY KIND, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING WITHOUT
+   LIMITATION THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. LICENSOR DOES NOT
+   WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED, ERROR-FREE, OR THAT
+   ANY WHATSAPP SESSION WILL REMAIN CONNECTED OR UNBANNED.
+
+7. LIMITATION OF LIABILITY
+   TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL
+   LICENSOR OR ITS CONTRIBUTORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOSS
+   OF PROFITS, DATA, GOODWILL, OR A WHATSAPP ACCOUNT, ARISING OUT OF OR
+   RELATED TO THE USE OF, OR INABILITY TO USE, THE SOFTWARE, REGARDLESS
+   OF THE THEORY OF LIABILITY AND EVEN IF ADVISED OF THE POSSIBILITY OF
+   SUCH DAMAGES. LICENSOR'S TOTAL AGGREGATE LIABILITY UNDER THIS
+   AGREEMENT SHALL NOT EXCEED THE AMOUNT, IF ANY, PAID BY LICENSEE TO
+   LICENSOR FOR THE SOFTWARE.
+
+8. INDEMNIFICATION
+   Licensee agrees to indemnify, defend, and hold harmless Licensor and
+   its contributors from any claim, demand, loss, or damage, including
+   reasonable attorneys' fees, arising out of Licensee's use of the
+   Software or breach of this Agreement.
+
+9. TERMINATION
+   This Agreement and the license granted herein terminate automatically,
+   without notice, if Licensee breaches any term of this Agreement. Upon
+   termination, Licensee must immediately cease all use of the Software
+   and destroy all copies in Licensee's possession or control. Sections
+   4, 6, 7, 8, 10, and 11 survive termination.
+
+10. EXPORT AND COMPLIANCE
+    Licensee shall comply with all applicable export control and
+    economic sanctions laws and regulations in connection with the
+    Software, and shall not use the Software in any jurisdiction or
+    for any purpose prohibited by such laws.
+
+11. GENERAL
+    11.1 Entire Agreement. This Agreement constitutes the entire
+         agreement between the parties regarding the Software and
+         supersedes all prior or contemporaneous understandings.
+    11.2 Severability. If any provision of this Agreement is held
+         unenforceable, the remaining provisions remain in full force
+         and effect, and the unenforceable provision shall be reformed
+         to the minimum extent necessary to make it enforceable.
+    11.3 No Waiver. Failure to enforce any provision of this Agreement
+         is not a waiver of that or any other provision.
+    11.4 Assignment. Licensee may not assign or transfer this Agreement
+         or any rights hereunder without Licensor's prior written
+         consent. Licensor may assign this Agreement freely.
+    11.5 Amendments. Licensor may update this Agreement for future
+         releases of the Software; continued use of an updated Software
+         version constitutes acceptance of the then-current Agreement.
+    11.6 Contact. Requests for rights beyond this Agreement (including
+         commercial redistribution or white-label deployment) must be
+         submitted in writing to Licensor for consideration.
+
+ALL RIGHTS NOT EXPRESSLY GRANTED IN THIS AGREEMENT ARE RESERVED BY
+LICENSOR.
