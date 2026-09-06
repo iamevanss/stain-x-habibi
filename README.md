@@ -1,105 +1,53 @@
 # Stain × Habibi
 
-WhatsApp Multi-Device bot built around the Stain × Habibi command structure.
+**WhatsApp Multi-Device bot** for groups and private chats.
 
-## Public release
+Manage groups, play media, make stickers, run owner tools — without complicated setup.
 
-**Stain × Habibi no longer uses Telegram or terminal commands for WhatsApp pairing.**
+---
 
-The public release flow is:
+<p align="center">
+  <a href="https://stainxhabibi-stain-s-projects.vercel.app/pair">
+    <img src="https://img.shields.io/badge/Pair%20Now-Official%20Website-a78bfa?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Pair Now" />
+  </a>
+</p>
 
-1. Visit the official Stain × Habibi website.
-2. Read the bot details, release information, features and requirements.
-3. Tap **Pair Now**.
-4. Complete WhatsApp pairing on the dedicated pairing page.
-5. The pairing service creates the user's secure session and generates their personal bootstrap.
-6. Deploy the generated bootstrap on the user's hosting/panel.
-7. The bootstrap restores the user's session and starts the bot.
+<p align="center">
+  <b><a href="https://stainxhabibi-stain-s-projects.vercel.app">Open the website</a></b>
+  ·
+  <b><a href="https://stainxhabibi-stain-s-projects.vercel.app/pair">Pair your WhatsApp</a></b>
+</p>
 
-The bot repository itself must never contain a user's WhatsApp session, pairing code, `.env`, API secrets, or private credentials.
+---
 
-## Included
+## What it does
 
-- Original General / Group / Media / Owner menu structure and styling
-- Advanced welcome/goodbye configuration
-- Warning and moderation controls
-- Antilink, antiword, antispam, antigstatus, antigm, antipromote, antidemote, antibot and antidelete controls
-- Scheduling and persistent per-group message statistics
-- Per-group chatbot controls
-- AFK and automatic replies/filters
-- Group administration and join-request tools
-- Media conversion and TTS/sticker utilities
-- Social URL downloading and optional auto-download
-- AI, search, image generation and summarization tools
-- Weather, translation, dictionary, calculator, QR, URL shortening, crypto and news utilities
-- Owner update/plugin controls
-- LID/phone JID resolution support
-- Telegram sticker-pack downloading through the Telegram Bot API (`.tg`) as an optional media utility
+- **Group tools** — kick, promote, warn, antilink, tag all, open/close, and more
+- **Media** — play audio, stickers, lyrics, TTS, Telegram sticker packs
+- **Owner controls** — sudo, private/public mode, broadcast
+- **Works in DMs and groups** on WhatsApp Multi-Device
 
-## Games
+## How to use
 
-WCG / Word Chain, Tic-Tac-Toe, slots and other additional games are intentionally removed for now and can be reintroduced later as a separate professional games module.
+1. Open the **[official website](https://stainxhabibi-stain-s-projects.vercel.app)**
+2. Tap **[Pair Now](https://stainxhabibi-stain-s-projects.vercel.app/pair)**
+3. Enter your WhatsApp number and complete pairing on your phone
+4. Download your **bootstrap** file
+5. Upload it to your panel and start the bot
 
-## Configuration
+Pairing is **only** through the official website.  
+No Telegram pairing. No terminal phone prompts.
 
-Copy `.env.example` to `.env` for local/private development only.
+## Links
 
-Never commit:
-- `.env`
-- WhatsApp auth state
-- session databases
-- pairing secrets
-- API keys
-- Telegram bot tokens
-- generated user bootstraps containing private configuration
+| | |
+|---|---|
+| **Website** | [stainxhabibi-stain-s-projects.vercel.app](https://stainxhabibi-stain-s-projects.vercel.app) |
+| **Pair Now** | [Pair your WhatsApp](https://stainxhabibi-stain-s-projects.vercel.app/pair) |
+| **License** | [MIT](./LICENSE) |
 
-`TELEGRAM_BOT_TOKEN` is **not** a pairing credential. It is only used by the optional `.tg` Telegram sticker-pack utility.
+---
 
-## Runtime requirements
-
-- Node.js 18+
-- FFmpeg installed on the host for media conversion
-- A valid Stain × Habibi bootstrap/session generated through the public pairing service
-
-## Start
-
-```bash
-npm install
-npm start
-```
-
-## Repository architecture
-
-```text
-Public website
-    │
-    └── Pair Now
-          │
-          ▼
-Vercel
-    ├── Official landing page
-    └── Dedicated pairing page / frontend
-          │
-          ▼
-Oracle Cloud backend
-    ├── WhatsApp pairing
-    ├── Pairing-code generation
-    ├── Session/bootstrap orchestration
-    └── API / background pairing worker
-          │
-          ▼
-Supabase
-    ├── Protected persistent session storage
-    ├── Simple public session IDs
-    └── Session status + metadata
-          │
-          ▼
-User hosting / panel
-    │
-    └── index.js / generated bootstrap
-          │
-          ▼
-Stain × Habibi bot runtime
-```
-
-The public GitHub repository contains the reusable bot source. Vercel hosts the web frontend only. Oracle Cloud hosts the long-running pairing backend/worker. Supabase provides protected persistent session storage and exposes only the session information needed by the public flow. User sessions and private deployment data never belong in the public repository.
+<p align="center">
+  <a href="https://stainxhabibi-stain-s-projects.vercel.app/pair"><b>→ Pair Now on the official website</b></a>
+</p>
