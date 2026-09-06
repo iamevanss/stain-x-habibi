@@ -1,0 +1,7 @@
+.env
+auth_info_baileys/
+data/*.json
+tmp/
+backup-*/
+plugins/*.js
+*.log
