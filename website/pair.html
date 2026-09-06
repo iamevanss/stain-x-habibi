@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pair Now — Stain × Habibi</title>
-  <meta name="description" content="Pair your WhatsApp account with Stain × Habibi." />
+  <meta name="description" content="Pair your WhatsApp with Stain × Habibi." />
+  <meta name="theme-color" content="#07070b" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -28,9 +29,9 @@
     <section class="panel" id="step-1">
       <h1>Pair your WhatsApp</h1>
       <p class="sub">
-        This connects a private WhatsApp account to Stain × Habibi.
-        Only pair an account you are authorized to use.
-        Pairing runs through the official service — not Telegram, not a terminal.
+        This links a WhatsApp account to Stain × Habibi.
+        Only use an account you are allowed to connect.
+        Pairing is done here — not on Telegram, not in a terminal.
       </p>
       <div class="actions">
         <button class="btn btn-primary" type="button" id="btn-start">Continue</button>
@@ -40,10 +41,10 @@
 
     <section class="panel" id="step-2" hidden>
       <h1>WhatsApp number</h1>
-      <p class="sub">International format, digits only with country code. Example: 2349012345678</p>
+      <p class="sub">Country code + number. Digits only. Example: 2349012345678</p>
       <label for="phone">Phone number</label>
       <input id="phone" type="tel" inputmode="numeric" placeholder="2349012345678" autocomplete="tel" />
-      <p class="hint">No + or spaces. Country code required.</p>
+      <p class="hint">No + sign and no spaces.</p>
       <div class="actions">
         <button class="btn btn-primary" type="button" id="btn-request">Get pairing code</button>
         <button class="btn btn-ghost" type="button" data-back="1">Back</button>
@@ -53,7 +54,7 @@
 
     <section class="panel" id="step-3" hidden>
       <h1>Enter this code in WhatsApp</h1>
-      <p class="sub">WhatsApp → Linked Devices → Link a Device → Link with phone number instead</p>
+      <p class="sub">WhatsApp → Linked devices → Link a device → Link with phone number instead</p>
       <div class="code-box" id="pair-code">········</div>
       <p class="status" id="pair-status">Waiting for confirmation…</p>
       <div class="actions">
@@ -63,18 +64,17 @@
 
     <section class="panel" id="step-4" hidden>
       <h1>You're paired</h1>
-      <p class="sub">Save your Session ID and bootstrap. Deploy the bootstrap on your panel.</p>
+      <p class="sub">Download your bootstrap and put it on your panel. Session ID is already filled in.</p>
       <label>Session ID</label>
       <div class="session-id" id="session-id">STAIN-······</div>
-      <label>Bootstrap (SESSION_ID already set — upload as index.js)</label>
+      <label>Bootstrap file</label>
       <div class="bootstrap-box" id="bootstrap-preview"></div>
       <div class="actions">
         <button class="btn btn-primary" type="button" id="btn-copy-id">Copy Session ID</button>
         <button class="btn btn-ghost" type="button" id="btn-download">Download bootstrap</button>
       </div>
       <div class="warn">
-        Do not share your Session ID or bootstrap. Host only on your panel.
-        Start command: <strong>node index.js</strong>
+        Do not share this file. On your panel, start with: <strong>node index.js</strong>
       </div>
       <div class="actions" style="margin-top:14px">
         <a class="btn btn-ghost" href="/">Back home</a>
@@ -85,7 +85,6 @@
   <footer class="footer">
     <div class="wrap">Stain × Habibi · Official pairing</div>
   </footer>
-
   <script src="/pair.js"></script>
 </body>
 </html>

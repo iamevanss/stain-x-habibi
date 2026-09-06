@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stain × Habibi — Public Release</title>
-  <meta name="description" content="Stain × Habibi WhatsApp Multi-Device bot. Pair securely through the official website." />
+  <title>Stain × Habibi — WhatsApp Bot</title>
+  <meta name="description" content="Stain × Habibi is a WhatsApp Multi-Device bot for groups and DMs. Pair only on the official website." />
+  <meta name="theme-color" content="#07070b" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -13,10 +14,9 @@
       <a class="brand" href="/">Stain <span>×</span> Habibi</a>
       <nav class="nav-links">
         <a class="hide-sm" href="#features">Features</a>
-        <a class="hide-sm" href="#requirements">Requirements</a>
-        <a class="hide-sm" href="#security">Security</a>
+        <a class="hide-sm" href="#how">How it works</a>
         <a class="hide-sm" href="#faq">FAQ</a>
-        <a class="btn btn-primary" href="/pair.html">Pair Now</a>
+        <a class="btn btn-primary" href="/pair">Pair Now</a>
       </nav>
     </div>
   </header>
@@ -24,68 +24,78 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="badge"><span class="dot"></span> Public Release · v1.0.0 · 2026</div>
-        <h1>WhatsApp MD bot.<br /><em>Pair on the website.</em></h1>
+        <div class="badge"><span class="dot"></span> Public Release · v1.0.0</div>
+        <h1>Your WhatsApp bot.<br /><em>Pair in minutes.</em></h1>
         <p>
-          Stain × Habibi is a multi-device WhatsApp bot for groups and DMs —
-          moderation, media, stickers, and owner tools. Pairing is done only
-          through this official site. No terminal prompts. No Telegram pairing.
+          Stain × Habibi helps you manage groups, send media, stickers, music,
+          and owner tools — on WhatsApp Multi-Device. Pair only through this official site.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/pair.html">Pair Now</a>
-          <a class="btn btn-ghost" href="https://github.com/iamevanss/stain-x-habibi" target="_blank" rel="noopener">GitHub Source</a>
+          <a class="btn btn-primary" href="/pair">Pair Now</a>
+          <a class="btn btn-ghost" href="https://github.com/iamevanss/stain-x-habibi" target="_blank" rel="noopener">View on GitHub</a>
         </div>
       </div>
     </section>
 
     <section class="section" id="features">
       <div class="wrap">
-        <h2>Features</h2>
-        <p class="lead">Core tools preserved from the Stain × Habibi runtime.</p>
+        <h2>What it does</h2>
+        <p class="lead">Built for real group admins and personal use.</p>
         <div class="grid">
-          <div class="card"><h3>Group moderation</h3><p>Kick, promote, warn, antilink, antigstatus, tagall, open/close, and more.</p></div>
-          <div class="card"><h3>Media toolkit</h3><p>Play, sticker, toimg, lyrics, TTS, Telegram sticker packs (.tg), status tools.</p></div>
-          <div class="card"><h3>Owner controls</h3><p>Sudo system, private/public mode, broadcast, block, prefix, and safe updates.</p></div>
-          <div class="card"><h3>Works in DMs & groups</h3><p>Multi-device Baileys runtime with LID/phone resolution and reconnect.</p></div>
+          <div class="card">
+            <h3>Group control</h3>
+            <p>Kick, promote, warn, antilink, tag everyone, open/close chat, and more — with proper admin checks.</p>
+          </div>
+          <div class="card">
+            <h3>Media & stickers</h3>
+            <p>Play songs, make stickers, convert images, lyrics, TTS, and import Telegram sticker packs.</p>
+          </div>
+          <div class="card">
+            <h3>Owner tools</h3>
+            <p>Sudo users, private/public mode, broadcast, block, and safe controls for the person who owns the bot.</p>
+          </div>
+          <div class="card">
+            <h3>DMs & groups</h3>
+            <p>Works in private chats and groups on WhatsApp Multi-Device, with automatic reconnect.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <h2>How to get started</h2>
+        <ul class="list">
+          <li><strong>1. Pair Now</strong> — tap the button and enter your WhatsApp number</li>
+          <li><strong>2. Enter the code</strong> — link the device in WhatsApp on your phone</li>
+          <li><strong>3. Download your bootstrap</strong> — one file with your Session ID already filled</li>
+          <li><strong>4. Deploy</strong> — upload to your panel and start with <code>node index.js</code></li>
+        </ul>
+        <div style="margin-top:28px">
+          <a class="btn btn-primary" href="/pair">Pair Now</a>
         </div>
       </div>
     </section>
 
     <section class="section" id="requirements">
       <div class="wrap">
-        <h2>Requirements</h2>
-        <p class="lead">What you need after pairing.</p>
+        <h2>What you need</h2>
         <ul class="list">
-          <li><strong>WhatsApp account</strong> you are authorized to link</li>
-          <li><strong>Hosting / panel</strong> that can run Node.js 18+ (e.g. Pterodactyl)</li>
-          <li><strong>Bootstrap file</strong> generated after a successful pair</li>
-          <li><strong>FFmpeg</strong> on the host for some media features</li>
+          <li><strong>A WhatsApp account</strong> you are allowed to link</li>
+          <li><strong>A host or panel</strong> with Node.js 18+ (for example Pterodactyl)</li>
+          <li><strong>Your bootstrap file</strong> from this website after pairing</li>
         </ul>
       </div>
     </section>
 
     <section class="section" id="security">
       <div class="wrap">
-        <h2>Security & sessions</h2>
-        <p class="lead">How public pairing is designed.</p>
+        <h2>Security</h2>
         <ul class="list">
-          <li><strong>Pair only on this website</strong> — not via Telegram or terminal</li>
-          <li><strong>Session ID</strong> format: <code>STAIN-XXXXXX</code></li>
-          <li><strong>Protected session storage</strong> on the pairing backend — not in the public GitHub repo</li>
-          <li><strong>Bootstrap</strong> restores your session on your own panel without editing bot source</li>
-          <li><strong>Never share</strong> your bootstrap, session ID, or WhatsApp credentials</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" id="how">
-      <div class="wrap">
-        <h2>How it works</h2>
-        <ul class="list">
-          <li><strong>1.</strong> Tap Pair Now and enter your WhatsApp number</li>
-          <li><strong>2.</strong> Enter the pairing code in WhatsApp on your phone</li>
-          <li><strong>3.</strong> Receive your Session ID and personal bootstrap</li>
-          <li><strong>4.</strong> Deploy the bootstrap on your panel and start the bot</li>
+          <li>Pairing happens only on this official website</li>
+          <li>No Telegram pairing and no terminal phone prompts</li>
+          <li>Your session is not stored in the public GitHub repository</li>
+          <li>Never share your Session ID or bootstrap file</li>
         </ul>
       </div>
     </section>
@@ -96,19 +106,19 @@
         <div class="faq">
           <details>
             <summary>Do I need Telegram to pair?</summary>
-            <p>No. Telegram is not used for WhatsApp pairing. Optional Telegram token is only for the .tg sticker utility after the bot is online.</p>
+            <p>No. Pairing is only through this website.</p>
           </details>
           <details>
-            <summary>Where is my session stored?</summary>
-            <p>Protected session material is stored by the pairing service. The public GitHub repo never contains user sessions or secrets.</p>
+            <summary>What is a Session ID?</summary>
+            <p>A public ID like <code>STAIN-XXXXXX</code> that ties your bootstrap to your paired session.</p>
           </details>
           <details>
-            <summary>What is STAIN-XXXXXX?</summary>
-            <p>Your public Session ID. You paste it into the bootstrap file (or it is pre-filled when generated) so your panel can restore the correct session.</p>
+            <summary>Where do I run the bot?</summary>
+            <p>On your own hosting or panel. After pairing, download the bootstrap and upload it there.</p>
           </details>
           <details>
-            <summary>Can I re-pair?</summary>
-            <p>Yes. Start a new pair on this site. Old sessions can be revoked by the pairing service.</p>
+            <summary>Can I pair again later?</summary>
+            <p>Yes. Start Pair Now again on this site.</p>
           </details>
         </div>
       </div>
@@ -116,14 +126,14 @@
 
     <section class="section" style="text-align:center;padding-top:0">
       <div class="wrap">
-        <a class="btn btn-primary" href="/pair.html">Pair Now</a>
+        <a class="btn btn-primary" href="/pair">Pair Now</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="wrap">
-      Stain × Habibi · Public Release v1.0.0 · Pair only through this official site
+      Stain × Habibi · v1.0.0 · Official pairing website
     </div>
   </footer>
 </body>
