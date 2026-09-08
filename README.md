@@ -2,23 +2,7 @@
 
 **WhatsApp Multi-Device bot** for groups and private chats.
 
-Manage groups, play media, make stickers, run owner tools — without complicated setup.
-
----
-
-<p align="center">
-  <a href="https://stainxhabibi-stain-s-projects.vercel.app/pair">
-    <img src="https://img.shields.io/badge/Pair%20Now-Official%20Website-a78bfa?style=for-the-badge&logo=whatsapp&logoColor=white" alt="Pair Now" />
-  </a>
-</p>
-
-<p align="center">
-  <b><a href="https://stainxhabibi-stain-s-projects.vercel.app">Open the website</a></b>
-  ·
-  <b><a href="https://stainxhabibi-stain-s-projects.vercel.app/pair">Pair your WhatsApp</a></b>
-</p>
-
----
+Manage groups, play media, make stickers, run owner tools.
 
 ## What it does
 
@@ -27,27 +11,30 @@ Manage groups, play media, make stickers, run owner tools — without complicate
 - **Owner controls** — sudo, private/public mode, broadcast
 - **Works in DMs and groups** on WhatsApp Multi-Device
 
-## How to use
+## Requirements
 
-1. Open the **[official website](https://stainxhabibi-stain-s-projects.vercel.app)**
-2. Tap **[Pair Now](https://stainxhabibi-stain-s-projects.vercel.app/pair)**
-3. Enter your WhatsApp number and complete pairing on your phone
-4. Download your **bootstrap** file
-5. Upload it to your panel and start the bot
+- Node.js 18+
+- FFmpeg on the host (for media)
+- A valid WhatsApp session (`auth_info_baileys`) from the official pairing service
 
-Pairing is **only** through the official website.  
-No Telegram pairing. No terminal phone prompts.
+## Start
 
-## Links
+```bash
+npm install --legacy-peer-deps
+npm start
+```
 
-| | |
-|---|---|
-| **Website** | [stainxhabibi-stain-s-projects.vercel.app](https://stainxhabibi-stain-s-projects.vercel.app) |
-| **Pair Now** | [Pair your WhatsApp](https://stainxhabibi-stain-s-projects.vercel.app/pair) |
-| **License** | [Proprietary — All Rights Reserved](./LICENSE) |
+Or on panels that only run `node index.js`, the bootstrap installs dependencies once, then starts the bot.
 
----
+## Config
 
-<p align="center">
-  <a href="https://stainxhabibi-stain-s-projects.vercel.app/pair"><b>→ Pair Now on the official website</b></a>
-</p>
+Optional env (or `.env` for private/local use only — never commit it):
+
+- `OWNER_NUMBER` — owner phone (digits). If empty, the paired bot number is used.
+- `PREFIX` — command prefix (default `.`)
+- `BOT_NAME` — display name
+- `TELEGRAM_BOT_TOKEN` — only for optional `.tg` sticker packs
+
+## License
+
+[Proprietary — All Rights Reserved](./LICENSE)
