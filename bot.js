@@ -144,9 +144,8 @@ async function connectToWhatsApp() {
         const { connection, lastDisconnect, qr } = update
 
         if (qr && !sock.authState.creds.registered) {
-            console.log(chalk.yellow('\n[PAIR] No saved WhatsApp session found.'))
-            console.log(chalk.cyan('[PAIR] Public pairing is handled by the official Stain × Habibi website.'))
-            console.log(chalk.cyan('[PAIR] Complete pairing on the website, then deploy the generated bootstrap.\n'))
+            console.log(chalk.yellow('\n[AUTH] No saved WhatsApp session found.'))
+            console.log(chalk.cyan('[AUTH] Place a valid auth_info_baileys session (from official pairing) and restart.\n'))
         }
 
         if (connection === 'open') {
@@ -224,7 +223,7 @@ async function connectToWhatsApp() {
 }
 
 // Boot
-console.log(chalk.magenta.bold(`\n𝘏𝘢𝘣𝘪𝘣𝘪 𝘔𝘶𝘨𝘴 𝘠𝘰𝘶  starting...\n`))
+console.log(chalk.magenta.bold(`\n𝘚𝘵𝘢𝘪𝘯 𝘹 𝘏𝘢𝘣𝘪𝘣𝘪  starting...\n`))
 loadData()
 connectToWhatsApp().catch((err) => {
     console.error(chalk.red('Fatal connection error:'), err)
