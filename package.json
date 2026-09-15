@@ -1,42 +1,33 @@
 {
   "name": "stain-x-habibi",
   "version": "1.0.0",
-  "description": "𝘚𝘵𝘢𝘪𝘯 𝘹 𝘏𝘢𝘣𝘪𝘣𝘪 - WhatsApp Multi-Device Bot",
+  "description": "Stain × Habibi WhatsApp Multi-Device bot",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "check": "node --check index.js && node --check bot.js && node --check lib/handler.js && node --check lib/enhancements.js && node --check lib/linkDetector.js && node --check lib/media.js && node --check lib/store.js && node --check lib/updateManager.js"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "github:xazepysk/wbails",
-    "pino": "^9.4.0",
+    "pino": "^9.6.0",
     "qrcode-terminal": "^0.12.0",
-    "chalk": "^5.3.0",
+    "chalk": "^5.4.1",
     "node-cache": "^5.1.2",
-    "fs-extra": "^11.2.0",
-    "axios": "^1.7.9",
+    "fs-extra": "^11.3.0",
+    "axios": "^1.8.4",
     "google-tts-api": "^2.0.2",
-    "yt-search": "^2.12.1",
-    "jimp": "^1.6.1",
+    "yt-search": "^2.13.1",
+    "jimp": "^1.6.0",
     "@jimp/core": "^1.6.0",
     "@jimp/wasm-webp": "^1.6.0",
-    "node-webpmux": "^3.2.0",
+    "node-webpmux": "^3.2.1",
     "sharp": "^0.33.5",
     "@vreden/youtube_scraper": "latest",
     "cheerio": "^1.0.0"
-  },
-  "keywords": [
-    "whatsapp",
-    "bot",
-    "baileys",
-    "moderation",
-    "stain",
-    "habibi"
-  ],
-  "author": "𝘚𝘵𝘢𝘪𝘯 💕",
-  "license": "SEE LICENSE IN LICENSE"
+  }
 }
