@@ -6,13 +6,14 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "check": "node --check index.js && node --check bot.js && node --check lib/handler.js && node --check lib/store.js && node --check lib/media.js && node --check lib/linkDetector.js && node --check lib/enhancements.js && node --check lib/updateManager.js"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "github:xazepysk/wbails",
+    "@whiskeysockets/baileys": "github:iamevanss/iamevanss-baileys#main",
     "pino": "^9.4.0",
     "qrcode-terminal": "^0.12.0",
     "chalk": "^5.3.0",
@@ -37,6 +38,6 @@
     "stain",
     "habibi"
   ],
-  "author": "𝘚𝘵𝘢𝘪𝘯 💕",
+  "author": "𝘚𝘵𝘢𝘪𝘯",
   "license": "SEE LICENSE IN LICENSE"
 }
