@@ -2,20 +2,78 @@
  * Stain × Habibi Bootstrap
  *
  * This file is the public entry point for panel deployments.
- * It installs dependencies when needed, asks for a WhatsApp number when
- * there is no saved session, creates the pairing code locally, saves the
- * Baileys session inside this installation, then starts the real bot.
+ * If the panel only has this bootstrap file, it clones the full public repo
+ * into the current installation first. It then installs dependencies, asks
+ * for a WhatsApp number when there is no saved session, creates the pairing
+ * code locally, saves the Baileys session inside this installation, and
+ * starts the real bot.
  */
-import { existsSync } from 'fs'
+import { existsSync, cpSync, mkdtempSync, rmSync } from 'fs'
 import { execSync } from 'child_process'
 import { createInterface } from 'readline/promises'
 import { stdin as input, stdout as output } from 'process'
+import { tmpdir } from 'os'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const AUTH_DIR = path.join(__dirname, 'auth_info_baileys')
 const BAILEYS_DIR = path.join(__dirname, 'node_modules', '@whiskeysockets', 'baileys')
+const PACKAGE_FILE = path.join(__dirname, 'package.json')
+const REPOSITORY_URL = 'https://github.com/iamevanss/stain-x-habibi.git'
+const REPOSITORY_BRANCH = 'main'
+
+function cloneFullRepository() {
+    if (existsSync(PACKAGE_FILE)) return
+
+    console.log('')
+    console.log('════════════════════════════════════════════')
+    console.log('  Stain × Habibi - downloading bot')
+    console.log('  Cloning the full public repository...')
+    console.log('════════════════════════════════════════════')
+    console.log('')
+
+    if (!existsSync(path.join(__dirname, '.git')) && !existsSync(path.join(__dirname, 'bot.js'))) {
+        // Expected for a fresh panel installation containing only index.js.
+    }
+
+    const tempDir = mkdtempSync(path.join(tmpdir(), 'stain-x-habibi-'))
+
+    try {
+        execSync(`git clone --depth 1 --branch ${REPOSITORY_BRANCH} ${REPOSITORY_URL} "${tempDir}/repo"`, {
+            stdio: 'inherit',
+            cwd: __dirname,
+            env: process.env,
+            timeout: 600000
+        })
+
+        const clonedRepo = path.join(tempDir, 'repo')
+        cpSync(clonedRepo, __dirname, {
+            recursive: true,
+            force: true,
+            errorOnExist: false
+        })
+
+        if (!existsSync(PACKAGE_FILE)) {
+            throw new Error('The repository was cloned, but package.json was not found.')
+        }
+
+        console.log('')
+        console.log('✓ Full repository downloaded.')
+        console.log('')
+    } catch (err) {
+        console.error('')
+        console.error('✗ Could not download the full repository.')
+        console.error(err?.message || err)
+        console.error('Make sure git is available and the server has internet access.')
+        console.error('')
+        process.exit(1)
+    } finally {
+        try {
+            rmSync(tempDir, { recursive: true, force: true })
+        } catch {}
+    }
+}
 
 function installDependencies() {
     if (existsSync(BAILEYS_DIR)) return
@@ -205,6 +263,7 @@ async function pairWhatsApp() {
 }
 
 async function main() {
+    cloneFullRepository()
     installDependencies()
     await pairWhatsApp()
     await import('./bot.js')
