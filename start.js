@@ -15,11 +15,14 @@ const CONFIG = {
 const root = path.dirname(fileURLToPath(import.meta.url))
 const repo = 'https://github.com/iamevanss/stain-x-habibi.git'
 const run = cmd => execSync(cmd, { cwd: root, stdio: 'inherit', env: process.env, timeout: 600000 })
+const clean = value => String(value || '').replace(/\D/g, '')
+const formatCode = value => String(value || '').replace(/[^A-Za-z0-9]/g, '').replace(/^(.{4})(.{4})$/, '$1-$2')
 
 function getRepo() {
   if (existsSync(path.join(root, 'package.json'))) return
   const tmp = mkdirSync(path.join(tmpdir(), `stain-${Date.now()}`), { recursive: true })
   try {
+    console.log('\nStain × Habibi - downloading repository...\n')
     run(`git clone --depth 1 ${repo} "${tmp}/repo"`)
     cpSync(path.join(tmp, 'repo'), root, { recursive: true, force: true })
   } finally {
@@ -29,22 +32,63 @@ function getRepo() {
 
 function applyConfig() {
   for (const [key, value] of Object.entries(CONFIG)) {
-    if (value !== '') process.env[key] = value
+    if (value !== '') process.env[key] = String(value)
   }
 }
 
-function phone() {
-  const value = String(CONFIG.PHONE_NUMBER || '').replace(/\D/g, '')
-  if (!value) throw new Error('Enter your WhatsApp phone number in PHONE_NUMBER at the top of start.js.')
-  if (value.length < 8 || value.length > 15) throw new Error('PHONE_NUMBER must include the country code and contain digits only.')
-  process.env.PHONE_NUMBER = value
+async function pair() {
+  const { default: makeWASocket, Browsers, useMultiFileAuthState, fetchLatestWaWebVersion } = await import('@whiskeysockets/baileys')
+  const { default: pino } = await import('pino')
+  const authDir = path.join(root, 'auth_info_baileys')
+  const { state, saveCreds } = await useMultiFileAuthState(authDir)
+  if (state.creds.registered) return
+
+  const phone = clean(CONFIG.PHONE_NUMBER)
+  if (!phone || phone.length < 8 || phone.length > 15) {
+    throw new Error('Enter your WhatsApp phone number in PHONE_NUMBER at the top of start.js.')
+  }
+
+  let version
+  try { version = (await fetchLatestWaWebVersion()).version } catch {}
+
+  const sock = makeWASocket({
+    auth: state,
+    ...(version ? { version } : {}),
+    logger: pino({ level: 'silent' }),
+    browser: Browsers.macOS('Chrome'),
+    printQRInTerminal: false,
+    syncFullHistory: false
+  })
+
+  sock.ev.on('creds.update', saveCreds)
+
+  const connected = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Pairing timed out.')), 300000)
+    sock.ev.on('connection.update', ({ connection, lastDisconnect }) => {
+      if (connection === 'open') {
+        clearTimeout(timer)
+        resolve()
+      }
+      if (connection === 'close') {
+        clearTimeout(timer)
+        reject(lastDisconnect?.error || new Error('WhatsApp connection closed.'))
+      }
+    })
+  })
+
+  console.log('\nGenerating WhatsApp pairing code...\n')
+  console.log(`Pairing code: ${formatCode(await sock.requestPairingCode(phone))}`)
+  console.log('WhatsApp → Linked Devices → Link a Device → enter the code.\n')
+  await connected
+  sock.end?.()
 }
 
 applyConfig()
 getRepo()
-phone()
 if (!existsSync(path.join(root, 'node_modules'))) run('npm install --legacy-peer-deps')
+await pair()
 
+console.log('\n✓ WhatsApp paired. Starting Stain × Habibi...\n')
 const child = spawn(process.execPath, ['index.js'], {
   cwd: root,
   stdio: 'inherit',
