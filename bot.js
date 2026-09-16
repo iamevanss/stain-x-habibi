@@ -145,7 +145,7 @@ async function connectToWhatsApp() {
 
         if (qr && !sock.authState.creds.registered) {
             console.log(chalk.yellow('\n[AUTH] No saved WhatsApp session found.'))
-            console.log(chalk.cyan('[AUTH] Place a valid auth_info_baileys session (from official pairing) and restart.\n'))
+            console.log(chalk.cyan('[AUTH] Pairing is handled by index.js. Restart the bot if you need to start a new pairing.\n'))
         }
 
         if (connection === 'open') {
