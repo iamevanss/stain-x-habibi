@@ -1,121 +1,203 @@
 # Stain × Habibi
 
-**WhatsApp Multi-Device bot** for groups and private chats.
+**WhatsApp Multi-Device bot** for private chats and groups.
 
-Manage groups, play media, make stickers, run owner tools, and pair directly from the deployment console.
+## Features
 
-## What it does
-
-- **Group tools** - kick, promote, warn, antilink, tag all, open/close, and more
-- **Media** - play audio, stickers, lyrics, TTS, Telegram sticker packs
-- **Owner controls** - sudo, private/public mode, broadcast
-- **Local WhatsApp pairing** - no external pairing website is required
-- **Persistent sessions** - the WhatsApp session is saved inside the bot installation
-- **Works in DMs and groups** on WhatsApp Multi-Device
+- Group administration and moderation
+- Media, stickers, TTS and Telegram sticker packs
+- Owner and sudo tools
+- Private/public mode
+- WhatsApp Multi-Device
+- Local persistent Baileys sessions
+- Local first-time pairing - no external pairing website
 
 ## Requirements
 
-- Node.js 18+
-- FFmpeg on the host (for media)
-- A panel or host that can run `node index.js`
+- Node.js 20.9+
+- Git
+- FFmpeg for media features
+- A VPS, panel or host that can run Node.js
 
-## Deployment
+## Panel deployment
 
-The public entry point is **`index.js`**.
+The recommended panel setup uses **`start.js`** as the startup/bootstrap file.
 
-If your panel starts the bot with `node index.js`, simply upload/clone the repository and start it.
+### 1. Create `start.js`
 
-The bootstrap will:
-
-1. Check whether dependencies are installed.
-2. Install them automatically if they are missing.
-3. Check for an existing WhatsApp session.
-4. If no session exists, ask for your WhatsApp phone number in the deployment console.
-5. Generate a WhatsApp pairing code.
-6. Save the resulting session locally in `auth_info_baileys/`.
-7. Start Stain × Habibi.
-
-### First deployment
-
-Run:
-
-```bash
-node index.js
-```
-
-You will see:
+Download `start.js` from this repository, or copy the script below into a new panel file named exactly:
 
 ```text
-════════════════════════════════════════════
-  WhatsApp pairing
-════════════════════════════════════════════
-
-Enter your WhatsApp phone number with country code.
-Example: 2348012345678
-Do not include +, spaces or dashes.
-
-Phone number:
+start.js
 ```
 
-Enter the WhatsApp number you want to connect, then the bootstrap will display a pairing code.
+The code block has GitHub's built-in **Copy** button.
 
-On WhatsApp, open **Linked Devices → Link a Device** and complete the pairing using the displayed code.
-
-After WhatsApp confirms the connection, the session is stored in:
-
-```text
-./auth_info_baileys/
-```
-
-The next time the panel restarts the bot, the saved session is detected automatically and the bot starts without asking for the number again.
-
-## Important: `index.js`
-
-**Yes - the file users run is `index.js`, and `index.js` contains the public bootstrap script.**
-
-Users do **not** need to create a separate bootstrap file.
-
-The deployment command is simply:
+### 2. Start it
 
 ```bash
-node index.js
+node start.js
 ```
 
-or, where supported:
+`start.js` will:
 
-```bash
-npm start
+1. Clone the full Stain × Habibi repository into the current installation if it is not already present.
+2. Install the bot dependencies.
+3. Read the panel environment or local `.env` values.
+4. Check for an existing `auth_info_baileys/` session.
+5. If no session exists, use `PHONE_NUMBER` or ask for the WhatsApp number in an interactive console.
+6. Generate a WhatsApp pairing code locally.
+7. Save the WhatsApp session locally.
+8. Start the real `index.js` bot.
+
+On later restarts, the saved session is reused and pairing is skipped.
+
+**Download:** [start.js](./start.js)
+
+<details>
+<summary><strong>Copy start.js</strong></summary>
+
+```js
+import { existsSync, cpSync, mkdirSync, rmSync, readFileSync } from 'fs'
+import { execSync, spawn } from 'child_process'
+import { createInterface } from 'readline/promises'
+import { stdin as input, stdout as output } from 'process'
+import { tmpdir } from 'os'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const root = path.dirname(fileURLToPath(import.meta.url))
+const repo = 'https://github.com/iamevanss/stain-x-habibi.git'
+const run = (cmd, cwd = root) => execSync(cmd, { cwd, stdio: 'inherit', env: process.env, timeout: 600000 })
+const clean = v => String(v || '').replace(/\D/g, '')
+const format = v => String(v || '').replace(/[^A-Za-z0-9]/g, '').replace(/^(.{4})(.{4})$/, '$1-$2')
+
+function loadEnv() {
+  const file = path.join(root, '.env')
+  if (!existsSync(file)) return
+  for (const line of readFileSync(file, 'utf8').split(/\r?\n/)) {
+    const i = line.indexOf('=')
+    if (i > 0) { const k = line.slice(0, i).trim(); const v = line.slice(i + 1).trim(); if (k && !process.env[k]) process.env[k] = v.replace(/^[\"']|[\"']$/g, '') }
+  }
+}
+
+function getRepo() {
+  if (existsSync(path.join(root, 'package.json'))) return
+  const tmp = mkdirSync(path.join(tmpdir(), `stain-${Date.now()}`), { recursive: true })
+  try {
+    console.log('\nStain × Habibi - downloading full repository...\n')
+    run(`git clone --depth 1 ${repo} "${tmp}/repo"`)
+    cpSync(path.join(tmp, 'repo'), root, { recursive: true, force: true })
+  } finally { rmSync(tmp, { recursive: true, force: true }) }
+}
+
+async function getPhone() {
+  let phone = clean(process.env.PHONE_NUMBER)
+  if (phone) return phone
+  if (!process.stdin.isTTY) throw new Error('Set PHONE_NUMBER in the panel environment.')
+  const rl = createInterface({ input, output })
+  try {
+    while (phone.length < 8 || phone.length > 15) {
+      phone = clean(await rl.question('WhatsApp phone number (country code, digits only): '))
+    }
+    return phone
+  } finally { rl.close() }
+}
+
+async function pair() {
+  const { default: makeWASocket, Browsers, useMultiFileAuthState, fetchLatestWaWebVersion } = await import('@whiskeysockets/baileys')
+  const { default: pino } = await import('pino')
+  const authDir = path.join(root, 'auth_info_baileys')
+  const { state, saveCreds } = await useMultiFileAuthState(authDir)
+  if (state.creds.registered) return
+
+  const phone = await getPhone()
+  let version
+  try { version = (await fetchLatestWaWebVersion()).version } catch {}
+  const sock = makeWASocket({ auth: state, ...(version ? { version } : {}), logger: pino({ level: 'silent' }), browser: Browsers.macOS('Chrome'), printQRInTerminal: false, syncFullHistory: false })
+  sock.ev.on('creds.update', saveCreds)
+
+  const connected = new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Pairing timed out.')), 300000)
+    sock.ev.on('connection.update', ({ connection, lastDisconnect }) => {
+      if (connection === 'open') { clearTimeout(timer); resolve() }
+      if (connection === 'close') { clearTimeout(timer); reject(lastDisconnect?.error || new Error('WhatsApp connection closed.')) }
+    })
+  })
+
+  console.log('\nGenerating WhatsApp pairing code...\n')
+  console.log(`Pairing code: ${format(await sock.requestPairingCode(phone))}`)
+  console.log('WhatsApp → Linked Devices → Link a Device → enter the code.\n')
+  await connected
+  sock.end?.()
+}
+
+loadEnv()
+getRepo()
+if (!existsSync(path.join(root, 'node_modules'))) run('npm install --legacy-peer-deps')
+await pair()
+console.log('\n✓ WhatsApp paired. Starting Stain × Habibi...\n')
+const child = spawn(process.execPath, ['index.js'], { cwd: root, stdio: 'inherit', env: process.env })
+child.on('exit', (code, signal) => process.exit(code ?? (signal ? 1 : 0)))
 ```
 
-## Panel environment option
+</details>
 
-If a hosting panel does not provide an interactive console, the phone number can be supplied as an environment variable:
+## Environment
+
+Use these variables in the panel or in a local `.env`:
 
 ```env
-PHONE_NUMBER=2348012345678
+PHONE_NUMBER=
+OWNER_NUMBER=
+PREFIX=.
+BOT_NAME=
+TELEGRAM_BOT_TOKEN=
 ```
 
-The number must include the country code and contain digits only.
+- `PHONE_NUMBER` - WhatsApp number used for first-time pairing. If blank, `start.js` asks for it when an interactive console is available.
+- `OWNER_NUMBER` - owner phone number in digits. If blank, the paired bot number is used.
+- `PREFIX` - command prefix. Default: `.`
+- `BOT_NAME` - bot display name.
+- `TELEGRAM_BOT_TOKEN` - optional token used by Telegram sticker-pack features.
 
-## Config
+Do not commit real credentials or tokens.
 
-Optional environment variables:
+## Session
 
-- `PHONE_NUMBER` - WhatsApp number used for first-time pairing when an interactive console is unavailable.
-- `OWNER_NUMBER` - owner phone (digits). If empty, the paired bot number is used.
-- `PREFIX` - command prefix (default `.`)
-- `BOT_NAME` - display name
-- `TELEGRAM_BOT_TOKEN` - only for optional `.tg` sticker packs
-
-## Session storage
-
-The Baileys authentication state is stored locally under:
+WhatsApp authentication is stored locally in:
 
 ```text
-./auth_info_baileys/
+auth_info_baileys/
 ```
 
-Keep this directory private. Do not upload it to a public repository or share its contents. It is ignored by `.gitignore`.
+Keep this directory private. Do not upload or share its contents.
+
+## Dependency
+
+Stain × Habibi uses the following Baileys setup:
+
+```json
+"dependencies": {
+  "@whiskeysockets/baileys": "^7.0.0-rc.11",
+  "libsignal": "6.0.0"
+},
+"overrides": {
+  "libsignal": "6.0.0",
+  "@whiskeysockets/baileys": {
+    "libsignal": "6.0.0"
+  }
+}
+```
+
+## Direct VPS deployment
+
+If the repository is already cloned, you can skip `start.js` and run:
+
+```bash
+npm install --legacy-peer-deps
+npm start
+```
 
 ## License
 
