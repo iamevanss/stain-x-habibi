@@ -62,24 +62,45 @@ async function pair() {
 
   sock.ev.on('creds.update', saveCreds)
 
-  const connected = new Promise((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error('Pairing timed out.')), 300000)
-    sock.ev.on('connection.update', ({ connection, lastDisconnect }) => {
-      if (connection === 'open') {
+  await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('WhatsApp socket did not become ready.')), 30000)
+    const onUpdate = update => {
+      if (update.connection === 'connecting' || update.qr) {
         clearTimeout(timer)
+        sock.ev.off('connection.update', onUpdate)
         resolve()
       }
-      if (connection === 'close') {
+      if (update.connection === 'close') {
         clearTimeout(timer)
-        reject(lastDisconnect?.error || new Error('WhatsApp connection closed.'))
+        sock.ev.off('connection.update', onUpdate)
+        reject(update.lastDisconnect?.error || new Error('WhatsApp connection closed.'))
       }
-    })
+    }
+    sock.ev.on('connection.update', onUpdate)
   })
 
   console.log('\nGenerating WhatsApp pairing code...\n')
-  console.log(`Pairing code: ${formatCode(await sock.requestPairingCode(phone))}`)
+  const code = await sock.requestPairingCode(phone)
+  console.log(`Pairing code: ${formatCode(code)}`)
   console.log('WhatsApp → Linked Devices → Link a Device → enter the code.\n')
-  await connected
+
+  await new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Pairing timed out. Enter the code on WhatsApp before the 5-minute limit.')), 300000)
+    const onUpdate = update => {
+      if (update.connection === 'open') {
+        clearTimeout(timer)
+        sock.ev.off('connection.update', onUpdate)
+        resolve()
+      }
+      if (update.connection === 'close') {
+        clearTimeout(timer)
+        sock.ev.off('connection.update', onUpdate)
+        reject(update.lastDisconnect?.error || new Error('WhatsApp connection closed during pairing.'))
+      }
+    }
+    sock.ev.on('connection.update', onUpdate)
+  })
+
   sock.end?.()
 }
 
