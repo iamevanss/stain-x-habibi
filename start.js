@@ -37,7 +37,7 @@ function applyConfig() {
 }
 
 async function pair() {
-  const { default: makeWASocket, Browsers, useMultiFileAuthState, fetchLatestWaWebVersion } = await import('@whiskeysockets/baileys')
+  const { default: makeWASocket, Browsers, useMultiFileAuthState, fetchLatestWaWebVersion } = await import('@iamvanss/baileys')
   const { default: pino } = await import('pino')
   const authDir = path.join(root, 'auth_info_baileys')
   const { state, saveCreds } = await useMultiFileAuthState(authDir)
@@ -106,7 +106,7 @@ async function pair() {
 
 applyConfig()
 getRepo()
-if (!existsSync(path.join(root, 'node_modules'))) run('npm install --legacy-peer-deps')
+if (!existsSync(path.join(root, 'node_modules', '@iamvanss', 'baileys'))) run('npm install --legacy-peer-deps')
 await pair()
 
 console.log('\n✓ WhatsApp paired. Starting Stain × Habibi...\n')
